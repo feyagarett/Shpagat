@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.shpagat.prosto.databinding.ActivityMainBinding
 import com.shpagat.prosto.utils.APP
+import com.shpagat.prosto.utils.appToast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

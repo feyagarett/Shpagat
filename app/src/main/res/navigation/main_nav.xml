@@ -26,5 +26,15 @@
         android:label="fragment_tickets"
         tools:layout="@layout/fragment_tickets" />
 
+    <fragment
+        android:id="@+id/direction"
+        android:name="com.shpagat.prosto.screens.DirectionFragment"
+        android:label="fragment_direction"
+        tools:layout="@layout/fragment_direction" />
+
+    <action
+        android:id="@+id/action_about_to_direction"
+        app:destination="@id/direction"
+        app:popUpTo="@+id/about" />
 
 </navigation>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    tools:context=".screens.DirectionFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/bold"
+        android:gravity="center"
+        android:textColor="@color/primary_color"
+        android:textSize="24sp"
+        tools:text="AERO" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/regular"
+        android:textColor="@color/black_color"
+        android:textSize="14sp"
+        tools:text="Это комплексная растяжка всего тела с использованием воздушного гамака. Во время тренировки идёт акцент на общую растяжку и укрепление мышц спины, а так же на растяжку в целях посадки на все виды шпагата и базовые акробатические элементы.
+Во время тренировки работают мышцы пресса и ног." />
+
+</LinearLayout>
