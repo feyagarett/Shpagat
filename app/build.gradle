@@ -5,14 +5,15 @@ plugins {
 
 android {
     namespace 'com.shpagat.prosto'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.shpagat.prosto"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
+        viewBinding.enabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
