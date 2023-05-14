@@ -1,8 +1,11 @@
 package com.shpagat.prosto
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.shpagat.prosto.databinding.ActivityMainBinding
+import com.shpagat.prosto.utils.APP
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -15,10 +18,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFields() {
-
+        APP = this
+        initBottomNav()
     }
 
     private fun initFuns() {
 
+    }
+
+    private fun initBottomNav() {
+        val navController = findNavController(R.id.main_frame)
+        binding.bottomNav.setupWithNavController(navController)
     }
 }
