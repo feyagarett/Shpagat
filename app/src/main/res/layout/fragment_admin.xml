@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".screens.AdminFragment">
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/regular"
+        android:text="*Льготная цена доступна по пенсионному или по студенческому билету"
+        android:textColor="@color/black_color"
+        android:textSize="8sp" />
+
+</LinearLayout>

@@ -19,7 +19,7 @@
         android:fontFamily="@font/bold"
         android:textColor="@color/black_color"
         android:textSize="14sp"
-        tools:text="AERO" />
+        tools:text="1 занятие" />
 
     <TextView
         android:id="@+id/item_price"
@@ -42,6 +42,15 @@
         android:textSize="14sp"
         tools:text="Льготная цена: 3400 ₽" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/regular"
+        android:text="* Льготная цена доступна по пенсионному или по студенческому билету"
+        android:textColor="@color/black_color"
+        android:textSize="8sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -49,7 +58,7 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:fontFamily="@font/regular"
-        android:text="*Льготная цена доступна по пенсионному или по студенческому билету"
+        android:text="** За покупкой обращаться к администратору"
         android:textColor="@color/black_color"
         android:textSize="8sp" />
 
