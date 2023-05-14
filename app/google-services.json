@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "303275424858",
+    "firebase_url": "https://shpagatprosto-9add3-default-rtdb.firebaseio.com",
+    "project_id": "shpagatprosto-9add3",
+    "storage_bucket": "shpagatprosto-9add3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303275424858:android:4b6ad40ba57ffc6b32ec63",
+        "android_client_info": {
+          "package_name": "com.example.shpagatprosto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303275424858-le57m53d28n8rfkf12hr6fs172tapnb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_Or-v9rTqKmEMw8om7CrdcqlqfeSFEcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303275424858-le57m53d28n8rfkf12hr6fs172tapnb2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303275424858:android:631d0db3228c2ccd32ec63",
+        "android_client_info": {
+          "package_name": "com.shpagat.prosto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303275424858-le57m53d28n8rfkf12hr6fs172tapnb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_Or-v9rTqKmEMw8om7CrdcqlqfeSFEcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303275424858-le57m53d28n8rfkf12hr6fs172tapnb2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
