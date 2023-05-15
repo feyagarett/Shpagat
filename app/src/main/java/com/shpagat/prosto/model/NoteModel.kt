@@ -1,10 +1,12 @@
 package com.shpagat.prosto.model
 
-data class TrainingModel(
+data class NoteModel(
     var id: String = "",
     var title: String = "",
     var coach: String = "",
     var time: String = "",
     var price: String = "",
-    var places: String = ""
+    var name: String = "",
+    var phone: String = "",
+    var email: String = ""
 )
