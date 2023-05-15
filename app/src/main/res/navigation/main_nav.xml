@@ -32,9 +32,20 @@
         android:label="fragment_direction"
         tools:layout="@layout/fragment_direction" />
 
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.shpagat.prosto.screens.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+
     <action
         android:id="@+id/action_about_to_direction"
         app:destination="@id/direction"
         app:popUpTo="@+id/about" />
+
+    <action
+        android:id="@+id/action_admin_to_profile"
+        app:destination="@id/profile"
+        app:popUpTo="@+id/admin" />
 
 </navigation>

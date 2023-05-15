@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.database.FirebaseDatabase
 import com.shpagat.prosto.databinding.ActivityMainBinding
 import com.shpagat.prosto.utils.APP
-import com.shpagat.prosto.utils.appToast
+import com.shpagat.prosto.utils.database
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFields() {
         APP = this
+        database = FirebaseDatabase.getInstance().reference
         initBottomNav()
     }
 
