@@ -31,6 +31,8 @@
             android:enabled="true"/>
         <service android:name=".services.GetNotesService"
             android:enabled="true"/>
+        <service android:name=".services.GetTrainingsService"
+            android:enabled="true"/>
     </application>
 
 </manifest>

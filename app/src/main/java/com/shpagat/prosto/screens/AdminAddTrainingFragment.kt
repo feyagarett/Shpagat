@@ -41,7 +41,7 @@ class AdminAddTrainingFragment : Fragment() {
             && places.isNotEmpty() && date.isNotEmpty()
         ) {
             try {
-                val longDate = SimpleDateFormat("dd.MM.yy HH:mm").parse(date).time
+                val longDate = SimpleDateFormat("dd.MM.yy HH:mm").parse(date).time / 1000
                 val trainingDb = database.child(TRAININGS).child(longDate.toString())
                 trainingDb.child(TITLE).setValue(title)
                 trainingDb.child(COACH).setValue(coach)
