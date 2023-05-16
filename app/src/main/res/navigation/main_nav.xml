@@ -38,6 +38,30 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 
+    <fragment
+        android:id="@+id/adminNotes"
+        android:name="com.shpagat.prosto.screens.AdminNotesFragment"
+        android:label="fragment_admin_notes"
+        tools:layout="@layout/fragment_admin_notes" />
+
+    <fragment
+        android:id="@+id/adminTickets"
+        android:name="com.shpagat.prosto.screens.AdminTicketsFragment"
+        android:label="fragment_admin_tickets"
+        tools:layout="@layout/fragment_admin_tickets" />
+
+    <fragment
+        android:id="@+id/adminSchedule"
+        android:name="com.shpagat.prosto.screens.AdminScheduleFragment"
+        android:label="fragment_admin_schedule"
+        tools:layout="@layout/fragment_admin_schedule" />
+
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="com.shpagat.prosto.screens.NoteFragment"
+        android:label="fragment_note"
+        tools:layout="@layout/fragment_note" />
+
     <action
         android:id="@+id/action_about_to_direction"
         app:destination="@id/direction"
@@ -47,5 +71,20 @@
         android:id="@+id/action_admin_to_profile"
         app:destination="@id/profile"
         app:popUpTo="@+id/admin" />
+
+    <action
+        android:id="@+id/action_profile_to_adminSchedule"
+        app:destination="@id/adminSchedule"
+        app:popUpTo="@+id/profile" />
+
+    <action
+        android:id="@+id/action_profile_to_adminTickets"
+        app:destination="@id/adminTickets"
+        app:popUpTo="@+id/profile" />
+
+    <action
+        android:id="@+id/action_profile_to_adminNotes"
+        app:destination="@id/adminNotes"
+        app:popUpTo="@+id/profile" />
 
 </navigation>

@@ -1,11 +1,13 @@
 package com.shpagat.prosto
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.database.FirebaseDatabase
 import com.shpagat.prosto.databinding.ActivityMainBinding
+import com.shpagat.prosto.services.GetUsedTicketsService
 import com.shpagat.prosto.utils.APP
 import com.shpagat.prosto.utils.database
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         APP = this
         database = FirebaseDatabase.getInstance().reference
         initBottomNav()
+        startService(Intent(APP, GetUsedTicketsService::class.java))
     }
 
     private fun initFuns() {

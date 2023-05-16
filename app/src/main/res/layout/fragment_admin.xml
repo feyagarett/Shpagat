@@ -8,6 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".screens.AdminFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
     <EditText
         android:id="@+id/password"
         android:hint="Пароль"
@@ -30,6 +41,6 @@
         android:gravity="center"
         android:text="Аккаунт имеется только у администратора"
         android:textColor="@color/black_color"
-        android:textSize="8sp" />
+        android:textSize="12sp" />
 
 </LinearLayout>
