@@ -34,7 +34,7 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
         holder.phone.text = privateList[position].phone
         holder.email.text = privateList[position].email
         holder.title.text = privateList[position].title
-        holder.date.text = SimpleDateFormat("HH:mm")
+        holder.date.text = SimpleDateFormat("dd.MM.yy HH:mm")
             .format(privateList[position].time.toLong() * 1000).toString()
         holder.price.text = privateList[position].price + " ₽"
         holder.coach.text = "Тренер: ${privateList[position].coach}"
