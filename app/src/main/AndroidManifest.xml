@@ -29,6 +29,8 @@
         </activity>
         <service android:name=".services.GetUsedTicketsService"
             android:enabled="true"/>
+        <service android:name=".services.GetNotesService"
+            android:enabled="true"/>
     </application>
 
 </manifest>

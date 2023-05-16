@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.database.FirebaseDatabase
 import com.shpagat.prosto.databinding.ActivityMainBinding
+import com.shpagat.prosto.services.GetNotesService
 import com.shpagat.prosto.services.GetUsedTicketsService
 import com.shpagat.prosto.utils.APP
 import com.shpagat.prosto.utils.database
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference
         initBottomNav()
         startService(Intent(APP, GetUsedTicketsService::class.java))
+        startService(Intent(APP, GetNotesService::class.java))
     }
 
     private fun initFuns() {

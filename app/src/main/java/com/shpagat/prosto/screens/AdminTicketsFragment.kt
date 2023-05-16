@@ -30,11 +30,11 @@ class AdminTicketsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFields()
-        initList()
     }
 
     private fun initFields() {
         adminVM = ViewModelProvider(APP)[AdminVM::class.java]
+        initList()
     }
 
     private fun initList() {
