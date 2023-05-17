@@ -25,10 +25,11 @@ class GetUsedTicketsService : Service() {
                     val title = s.child(TITLE).value.toString()
                     val remained = s.child(REMAINED).value.toString()
                     val name = s.child(NAME).value.toString()
-                    val phone = MyCrypt.decrypt(s.key.toString()).toString()
+                    val phone = MyCrypt.decrypt(s.child(PHONE).value.toString()).toString()
                     val mail = MyCrypt.decrypt(s.child(MAIL).value.toString()).toString()
-                    adminVM.usedTickets.add(UsedTicketModel(title, remained, name, phone, mail))
-                    noteVM.usedTickets.add(UsedTicketModel(title, remained, name, phone, mail))
+                    val id = s.key.toString()
+                    adminVM.usedTickets.add(UsedTicketModel(title, remained, name, phone, mail, id))
+                    noteVM.usedTickets.add(UsedTicketModel(title, remained, name, phone, mail, id))
                 }
             }
         })

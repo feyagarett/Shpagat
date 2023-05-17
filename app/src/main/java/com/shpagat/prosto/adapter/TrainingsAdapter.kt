@@ -62,10 +62,10 @@ class TrainingsAdapter : RecyclerView.Adapter<TrainingsAdapter.ViewHolder>() {
 
     private fun goToNote(training: TrainingModel) {
         val noteVM = ViewModelProvider(APP)[NoteVM::class.java]
-        noteVM.title = training.title
-        noteVM.coach = training.coach
-        noteVM.price = training.price
-        noteVM.date = training.date
+        noteVM.trainingTitle = training.title
+        noteVM.trainingCoach = training.coach
+        noteVM.trainingPrice = training.price
+        noteVM.trainingDate = training.date
         val navController = Navigation.findNavController(APP, R.id.main_frame)
         navController.navigate(R.id.action_schedule_to_note)
     }

@@ -1,6 +1,7 @@
 package com.shpagat.prosto.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,42 +60,50 @@ class NoteFragment : Fragment() {
     }
 
     private fun noteUser(name: String, phone: String, mail: String) {
-        database.child(TRAININGS).child(noteVM.date).child(PLACES).get().addOnSuccessListener {
-            if (it.exists()) {
-                val places = it.value.toString().toInt()
-                if (places > 0) {
-                    database.child(TRAININGS).child(noteVM.date).child(PLACES)
-                        .setValue(places - 1)
-                    database.child(USED_TICKETS).child(MyCrypt.encrypt(phone).toString())
-                        .child(REMAINED).get().addOnSuccessListener {
-                            if (it.exists()) {
-                                val remained = it.value.toString().toInt()
-                                if (remained > 0) {
-                                    database.child(USED_TICKETS)
-                                        .child(MyCrypt.encrypt(phone).toString())
-                                        .child(REMAINED).setValue(remained + 1)
-                                    val id = UUID.randomUUID().toString()
-                                    val notesDb = database.child(NOTES).child(id)
-                                    notesDb.child(COACH).setValue(noteVM.coach)
-                                    notesDb.child(MAIL).setValue(mail)
-                                    notesDb.child(NAME).setValue(name)
-                                    notesDb.child(PHONE).setValue(phone)
-                                    notesDb.child(PRICE).setValue(noteVM.price)
-                                    notesDb.child(TIME).setValue(noteVM.date)
-                                    notesDb.child(TITLE).setValue(noteVM.title)
-                                    appToast("Успех")
-                                    noted = true
-                                    binding.noteBtn.text = "Вы записаны"
-                                } else {
-                                    appToast("Перезайдите в приложение")
-                                }
-                            }
+        database.child(TRAININGS).child(noteVM.trainingDate).child(PLACES).get()
+            .addOnSuccessListener {
+                if (it.exists()) {
+                    val places = it.value.toString().toInt()
+                    if (places > 0) {
+                        database.child(TRAININGS).child(noteVM.trainingDate).child(PLACES)
+                            .setValue(places - 1)
+                        var ticketId = ""
+                        for (i in noteVM.usedTickets) {
+                            if (i.phone == phone) ticketId = i.id
                         }
-                } else {
-                    appToast("Перезайдите в приложение")
+                        database.child(USED_TICKETS).child(ticketId).child(REMAINED).get()
+                            .addOnSuccessListener { rem ->
+                                if (rem.exists()) {
+                                    val remained = rem.value.toString().toInt()
+                                    if (remained > 0) {
+                                        database.child(USED_TICKETS).child(ticketId).child(REMAINED)
+                                            .setValue(remained - 1)
+                                        val id = UUID.randomUUID().toString()
+                                        val notesDb = database.child(NOTES).child(id)
+                                        notesDb.child(COACH).setValue(noteVM.trainingCoach)
+                                        notesDb.child(MAIL).setValue(MyCrypt.encrypt(mail))
+                                        notesDb.child(NAME).setValue(name)
+                                        notesDb.child(PHONE).setValue(MyCrypt.encrypt(phone))
+                                        notesDb.child(PRICE).setValue(noteVM.trainingPrice)
+                                        notesDb.child(TIME).setValue(noteVM.trainingDate)
+                                        notesDb.child(TITLE).setValue(noteVM.trainingTitle)
+                                        appToast("Успех")
+                                        noted = true
+                                        binding.noteBtn.text = "Вы записаны"
+                                    } else {
+                                        appToast("Перезайдите в приложение")
+                                    }
+                                } else {
+                                    appToast("no")
+                                }
+                            }.addOnFailureListener { e ->
+                                Log.e("", e.message.toString())
+                            }
+                    } else {
+                        appToast("Перезайдите в приложение")
+                    }
                 }
             }
-        }
     }
 
     private fun initFields() {
@@ -103,10 +112,11 @@ class NoteFragment : Fragment() {
     }
 
     private fun setData() {
-        binding.title.text = noteVM.title
+        binding.title.text = noteVM.trainingTitle
         binding.time.text =
-            SimpleDateFormat("dd.MM.yy HH:mm").format(noteVM.date.toLong() * 1000).toString()
-        binding.price.text = "${noteVM.price} ₽"
-        binding.coach.text = "Тренер: ${noteVM.coach}"
+            SimpleDateFormat("dd.MM.yy HH:mm").format(noteVM.trainingDate.toLong() * 1000)
+                .toString()
+        binding.price.text = "${noteVM.trainingPrice} ₽"
+        binding.coach.text = "Тренер: ${noteVM.trainingCoach}"
     }
 }
