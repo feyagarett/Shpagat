@@ -15,13 +15,13 @@ import com.shpagat.prosto.model.TrainingModel
 import com.shpagat.prosto.utils.APP
 import com.shpagat.prosto.utils.gone
 import com.shpagat.prosto.utils.visible
-import com.shpagat.prosto.viewmodel.TrainingVM
+import com.shpagat.prosto.viewmodel.NoteVM
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ScheduleFragment : Fragment() {
     private lateinit var binding: FragmentScheduleBinding
-    private lateinit var trainingVm: TrainingVM
+    private lateinit var noteVm: NoteVM
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TrainingsAdapter
 
@@ -67,12 +67,16 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun getTrainings(longDate: String) {
+        val date = SimpleDateFormat("dd.MM.yy").format(Date().time).toString()
+        val currentLong = (SimpleDateFormat("dd.MM.yy").parse(date).time / 1000)
+            .toString()
         binding.title.text =
             SimpleDateFormat("dd.MM.yy").format(longDate.toLong() * 1000).toString()
         val currentList = mutableListOf<TrainingModel>()
-        for (i in trainingVm.trainings) {
+        for (i in noteVm.trainings) {
             if (i.date.toLong() in longDate.toLong()..longDate.toLong() + 86400) {
-                currentList.add(i)
+                if (longDate.toLong() > currentLong.toLong())
+                    currentList.add(i)
             }
         }
         if (currentList.isNotEmpty()) {
@@ -86,7 +90,7 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun initFields() {
-        trainingVm = ViewModelProvider(APP)[TrainingVM::class.java]
+        noteVm = ViewModelProvider(APP)[NoteVM::class.java]
         val date = SimpleDateFormat("dd.MM.yy").format(Date().time).toString()
         val longDate = (SimpleDateFormat("dd.MM.yy").parse(date).time / 1000)
             .toString()

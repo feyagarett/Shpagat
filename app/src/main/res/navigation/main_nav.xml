@@ -57,7 +57,7 @@
         tools:layout="@layout/fragment_admin_schedule" />
 
     <fragment
-        android:id="@+id/noteFragment"
+        android:id="@+id/note"
         android:name="com.shpagat.prosto.screens.NoteFragment"
         android:label="fragment_note"
         tools:layout="@layout/fragment_note" />
@@ -97,5 +97,10 @@
         android:id="@+id/action_adminSchedule_to_adminAddTraining"
         app:destination="@id/adminAddTraining"
         app:popUpTo="@+id/adminSchedule" />
+
+    <action
+        android:id="@+id/action_schedule_to_note"
+        app:destination="@id/note"
+        app:popUpTo="@+id/schedule" />
 
 </navigation>

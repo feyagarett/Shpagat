@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.shpagat.prosto.model.TrainingModel
 import com.shpagat.prosto.utils.*
 import com.shpagat.prosto.viewmodel.AdminVM
-import com.shpagat.prosto.viewmodel.TrainingVM
+import com.shpagat.prosto.viewmodel.NoteVM
 
 class GetTrainingsService : Service() {
 
@@ -20,7 +20,7 @@ class GetTrainingsService : Service() {
         usedTicketsDb.addListenerForSingleValueEvent(AppValueEventListener {
             if (it.exists()) {
                 val adminVM = ViewModelProvider(APP)[AdminVM::class.java]
-                val trainingVM = ViewModelProvider(APP)[TrainingVM::class.java]
+                val noteVM = ViewModelProvider(APP)[NoteVM::class.java]
                 for (s in it.children) {
                     val date = s.key.toString()
                     val title = s.child(TITLE).value.toString()
@@ -28,7 +28,7 @@ class GetTrainingsService : Service() {
                     val price = s.child(PRICE).value.toString()
                     val places = s.child(PLACES).value.toString()
                     adminVM.trainings.add(TrainingModel(title, coach, date, price, places))
-                    trainingVM.trainings.add(TrainingModel(title, coach, date, price, places))
+                    noteVM.trainings.add(TrainingModel(title, coach, date, price, places))
                 }
             }
         })
