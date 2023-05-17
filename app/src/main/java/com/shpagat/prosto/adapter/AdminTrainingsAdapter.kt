@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.shpagat.prosto.R
 import com.shpagat.prosto.model.TrainingModel
+import com.shpagat.prosto.utils.APP
+import com.shpagat.prosto.viewmodel.AdminVM
 import java.text.SimpleDateFormat
 
 class AdminTrainingsAdapter : RecyclerView.Adapter<AdminTrainingsAdapter.ViewHolder>() {
@@ -43,5 +47,33 @@ class AdminTrainingsAdapter : RecyclerView.Adapter<AdminTrainingsAdapter.ViewHol
         privateList.clear()
         privateList.addAll(list)
         notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun deleteItem(position: Int) {
+        privateList.removeAt(position)
+        notifyDataSetChanged()
+    }
+
+    fun getItem(position: Int) = privateList[position]
+
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.itemView.setOnClickListener {
+            editTraining(privateList[holder.absoluteAdapterPosition])
+        }
+    }
+
+    private fun editTraining(training: TrainingModel) {
+        val adminVM = ViewModelProvider(APP)[AdminVM::class.java]
+        adminVM.editTraining = true
+        adminVM.trainingDate = training.date
+        adminVM.trainingTitle = training.title
+        adminVM.trainingCoach = training.coach
+        adminVM.trainingPrice = training.price
+        adminVM.trainingPlaces = training.places
+        val navController = Navigation.findNavController(APP, R.id.main_frame)
+        navController.navigate(R.id.action_adminSchedule_to_adminAddTraining)
+
     }
 }

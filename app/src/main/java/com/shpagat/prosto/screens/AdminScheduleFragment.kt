@@ -7,12 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shpagat.prosto.R
 import com.shpagat.prosto.adapter.AdminTrainingsAdapter
 import com.shpagat.prosto.databinding.FragmentAdminScheduleBinding
+import com.shpagat.prosto.model.TrainingModel
 import com.shpagat.prosto.utils.APP
+import com.shpagat.prosto.utils.AppSwipeListener
+import com.shpagat.prosto.utils.TRAININGS
+import com.shpagat.prosto.utils.database
 import com.shpagat.prosto.viewmodel.AdminVM
 
 class AdminScheduleFragment : Fragment() {
@@ -45,6 +50,7 @@ class AdminScheduleFragment : Fragment() {
             val navController = Navigation.findNavController(APP, R.id.main_frame)
             navController.navigate(R.id.action_adminSchedule_to_adminAddTraining)
         }
+        initSwipeListener()
     }
 
     private fun initList() {
@@ -53,5 +59,25 @@ class AdminScheduleFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(APP)
         recyclerView.adapter = adapter
         adapter.setList(adminVM.trainings)
+    }
+
+    private fun initSwipeListener() {
+        val swipeListener = object : AppSwipeListener(APP) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                when (direction) {
+                    ItemTouchHelper.RIGHT -> {
+                        deleteTraining(adapter.getItem(viewHolder.absoluteAdapterPosition))
+                        adapter.deleteItem(viewHolder.absoluteAdapterPosition)
+                    }
+                }
+            }
+        }
+        val touchHelper = ItemTouchHelper(swipeListener)
+        touchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun deleteTraining(training: TrainingModel) {
+        database.child(TRAININGS).child(training.date).removeValue()
+        adminVM.trainings.remove(training)
     }
 }

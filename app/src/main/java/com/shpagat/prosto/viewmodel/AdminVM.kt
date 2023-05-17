@@ -9,4 +9,11 @@ class AdminVM : ViewModel() {
     var usedTickets = mutableListOf<UsedTicketModel>()
     var notes = mutableListOf<NoteModel>()
     var trainings = mutableListOf<TrainingModel>()
+
+    var editTraining = false
+    var trainingDate = ""
+    var trainingCoach = ""
+    var trainingPlaces = ""
+    var trainingPrice = ""
+    var trainingTitle = ""
 }
