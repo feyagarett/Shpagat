@@ -2,7 +2,6 @@ package com.shpagat.prosto.screens
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,14 +47,13 @@ class ScheduleFragment : Fragment() {
 
     private fun getDate() {
         var cal = Calendar.getInstance()
-
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val date = SimpleDateFormat("dd.MM.yy").format(cal.time)
-                val longDate = (SimpleDateFormat("dd.MM.yy").parse(date).time)
+                val longDate = (SimpleDateFormat("dd.MM.yy").parse(date).time / 1000)
                     .toString()
                 getTrainings(longDate)
             }
@@ -69,22 +67,30 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun getTrainings(longDate: String) {
-        Log.e("", longDate)
         binding.title.text =
-            SimpleDateFormat("dd.MM.yy").format(longDate.toLong()).toString()
-        gone(binding.error)
+            SimpleDateFormat("dd.MM.yy").format(longDate.toLong() * 1000).toString()
         val currentList = mutableListOf<TrainingModel>()
         for (i in trainingVm.trainings) {
-            if (i.date in longDate..longDate + 86400)
+            if (i.date.toLong() in longDate.toLong()..longDate.toLong() + 86400) {
                 currentList.add(i)
+            }
         }
-        if (currentList.isNotEmpty()) setList(currentList)
-        else visible(binding.error)
+        if (currentList.isNotEmpty()) {
+            gone(binding.error)
+            visible(binding.recyclerView)
+            setList(currentList)
+        } else {
+            gone(binding.recyclerView)
+            visible(binding.error)
+        }
     }
 
     private fun initFields() {
         trainingVm = ViewModelProvider(APP)[TrainingVM::class.java]
-        getTrainings((Date().time).toString())
+        val date = SimpleDateFormat("dd.MM.yy").format(Date().time).toString()
+        val longDate = (SimpleDateFormat("dd.MM.yy").parse(date).time / 1000)
+            .toString()
+        getTrainings(longDate)
     }
 
     private fun setList(list: List<TrainingModel>) {
