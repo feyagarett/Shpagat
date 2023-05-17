@@ -1,5 +1,6 @@
 package com.shpagat.prosto.utils
 
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 
@@ -8,3 +9,11 @@ fun appToast(text: String) {
 }
 
 fun myGetText(editText: EditText) = editText.text.toString().trim()
+
+fun gone(view: View) {
+    view.visibility = View.GONE
+}
+
+fun visible(view: View) {
+    view.visibility = View.VISIBLE
+}
