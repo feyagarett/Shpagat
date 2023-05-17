@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.shpagat.prosto.databinding.FragmentAdminAddTrainingBinding
+import com.shpagat.prosto.model.TrainingModel
 import com.shpagat.prosto.utils.*
+import com.shpagat.prosto.viewmodel.AdminVM
 import java.text.SimpleDateFormat
 
 class AdminAddTrainingFragment : Fragment() {
     private lateinit var binding: FragmentAdminAddTrainingBinding
+    private lateinit var adminVM: AdminVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +26,12 @@ class AdminAddTrainingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initFields()
         initFuns()
+    }
+
+    private fun initFields() {
+        adminVM = ViewModelProvider(APP)[AdminVM::class.java]
     }
 
     private fun initFuns() {
@@ -47,6 +56,7 @@ class AdminAddTrainingFragment : Fragment() {
                 trainingDb.child(COACH).setValue(coach)
                 trainingDb.child(PRICE).setValue(price)
                 trainingDb.child(PLACES).setValue(places)
+                adminVM.trainings.add(TrainingModel(title, coach, longDate.toString(), price, places))
                 appToast("Успех")
                 clearInputs()
             } catch (e: Exception) {
