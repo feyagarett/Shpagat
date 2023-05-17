@@ -115,7 +115,7 @@
             style="@style/input"
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="4dp"
-            android:hint="Введите имя"
+            android:hint="Введите телефон"
             android:inputType="phone"
             android:padding="12dp" />
 
@@ -129,7 +129,7 @@
             style="@style/input"
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="4dp"
-            android:hint="Введите имя"
+            android:hint="Введите e-mail"
             android:inputType="textEmailAddress"
             android:padding="12dp" />
 
