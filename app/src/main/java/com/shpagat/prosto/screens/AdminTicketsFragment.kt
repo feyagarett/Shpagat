@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.shpagat.prosto.R
 import com.shpagat.prosto.adapter.UsedTicketsAdapter
 import com.shpagat.prosto.databinding.FragmentAdminTicketsBinding
 import com.shpagat.prosto.utils.APP
@@ -30,6 +32,14 @@ class AdminTicketsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFields()
+        initFuns()
+    }
+
+    private fun initFuns() {
+        binding.addBtn.setOnClickListener {
+            val navController = Navigation.findNavController(APP, R.id.main_frame)
+            navController.navigate(R.id.action_adminTickets_to_adminAddTicket)
+        }
     }
 
     private fun initFields() {

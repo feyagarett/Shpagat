@@ -16,4 +16,12 @@ class AdminVM : ViewModel() {
     var trainingPlaces = ""
     var trainingPrice = ""
     var trainingTitle = ""
+
+    var editTicket = false
+    var ticketTitle = ""
+    var ticketRemained = ""
+    var ticketName = ""
+    var ticketPhone = ""
+    var ticketMail = ""
+    var ticketId = ""
 }

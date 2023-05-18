@@ -74,6 +74,5 @@ class AdminTrainingsAdapter : RecyclerView.Adapter<AdminTrainingsAdapter.ViewHol
         adminVM.trainingPlaces = training.places
         val navController = Navigation.findNavController(APP, R.id.main_frame)
         navController.navigate(R.id.action_adminSchedule_to_adminAddTraining)
-
     }
 }
