@@ -14,10 +14,7 @@ import com.shpagat.prosto.R
 import com.shpagat.prosto.adapter.AdminTrainingsAdapter
 import com.shpagat.prosto.databinding.FragmentAdminScheduleBinding
 import com.shpagat.prosto.model.TrainingModel
-import com.shpagat.prosto.utils.APP
-import com.shpagat.prosto.utils.AppSwipeListener
-import com.shpagat.prosto.utils.TRAININGS
-import com.shpagat.prosto.utils.database
+import com.shpagat.prosto.utils.*
 import com.shpagat.prosto.viewmodel.AdminVM
 
 class AdminScheduleFragment : Fragment() {
@@ -66,8 +63,7 @@ class AdminScheduleFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when (direction) {
                     ItemTouchHelper.RIGHT -> {
-                        deleteTraining(adapter.getItem(viewHolder.absoluteAdapterPosition))
-                        adapter.deleteItem(viewHolder.absoluteAdapterPosition)
+                        tryDelete(viewHolder)
                     }
                 }
             }
@@ -76,8 +72,26 @@ class AdminScheduleFragment : Fragment() {
         touchHelper.attachToRecyclerView(recyclerView)
     }
 
-    private fun deleteTraining(training: TrainingModel) {
-        database.child(TRAININGS).child(training.date).removeValue()
-        adminVM.trainings.remove(training)
+    private fun tryDelete(viewHolder: RecyclerView.ViewHolder) {
+        deleteTraining(adapter.getItem(viewHolder.absoluteAdapterPosition), viewHolder)
+    }
+
+    private fun deleteTraining(training: TrainingModel, viewHolder: RecyclerView.ViewHolder) {
+        visible(binding.deleteBtn)
+        visible(binding.cancelBtn)
+        gone(binding.addBtn)
+        binding.deleteBtn.setOnClickListener {
+            database.child(TRAININGS).child(training.date).removeValue()
+            adminVM.trainings.remove(training)
+            adapter.deleteItem(viewHolder.absoluteAdapterPosition)
+            gone(binding.deleteBtn)
+            gone(binding.cancelBtn)
+            visible(binding.addBtn)
+        }
+        binding.cancelBtn.setOnClickListener {
+            gone(binding.deleteBtn)
+            gone(binding.cancelBtn)
+            visible(binding.addBtn)
+        }
     }
 }

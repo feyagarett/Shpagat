@@ -19,6 +19,22 @@
         tools:listitem="@layout/item_training" />
 
     <Button
+        android:id="@+id/delete_btn"
+        style="@style/btn"
+        android:layout_marginBottom="12dp"
+        android:text="Удаляем?"
+        android:visibility="gone"
+        app:cornerRadius="6dp" />
+
+    <Button
+        android:id="@+id/cancel_btn"
+        style="@style/btn"
+        android:layout_marginBottom="12dp"
+        android:text="Отмена"
+        android:visibility="gone"
+        app:cornerRadius="6dp" />
+
+    <Button
         android:id="@+id/add_btn"
         style="@style/btn"
         android:layout_marginBottom="12dp"

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.shpagat.prosto.R
 import com.shpagat.prosto.adapter.TrainingsAdapter
 import com.shpagat.prosto.databinding.FragmentScheduleBinding
 import com.shpagat.prosto.model.TrainingModel
@@ -58,12 +59,14 @@ class ScheduleFragment : Fragment() {
                 getTrainings(longDate)
             }
 
-        DatePickerDialog(
+        val datePicker =  DatePickerDialog(
             APP, dateSetListener,
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
             cal.get(Calendar.DAY_OF_MONTH)
-        ).show()
+        )
+        datePicker.window?.setBackgroundDrawable(APP.getDrawable(R.drawable.date_picker))
+        datePicker.show()
     }
 
     private fun getTrainings(longDate: String) {
