@@ -21,6 +21,8 @@ class GetTrainingsService : Service() {
             if (it.exists()) {
                 val adminVM = ViewModelProvider(APP)[AdminVM::class.java]
                 val noteVM = ViewModelProvider(APP)[NoteVM::class.java]
+                adminVM.trainings.clear()
+                noteVM.trainings.clear()
                 for (s in it.children) {
                     val date = s.key.toString()
                     val title = s.child(TITLE).value.toString()
