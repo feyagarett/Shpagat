@@ -74,10 +74,10 @@ class AdminTicketsFragment : Fragment() {
     }
 
     private fun tryDelete(viewHolder: RecyclerView.ViewHolder) {
-        deleteTraining(adapter.getItem(viewHolder.absoluteAdapterPosition), viewHolder)
+        deleteTicket(adapter.getItem(viewHolder.absoluteAdapterPosition), viewHolder)
     }
 
-    private fun deleteTraining(ticket: UsedTicketModel, viewHolder: RecyclerView.ViewHolder) {
+    private fun deleteTicket(ticket: UsedTicketModel, viewHolder: RecyclerView.ViewHolder) {
         visible(binding.deleteBtn)
         visible(binding.cancelBtn)
         gone(binding.addBtn)

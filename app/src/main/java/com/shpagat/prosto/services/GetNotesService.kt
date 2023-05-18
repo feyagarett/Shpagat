@@ -20,7 +20,7 @@ class GetNotesService : Service() {
             if (it.exists()) {
                 val adminVM = ViewModelProvider(APP)[AdminVM::class.java]
                 for (s in it.children) {
-                    val id = it.key.toString()
+                    val id = s.key.toString()
                     val name = s.child(NAME).value.toString()
                     val phone = MyCrypt.decrypt(s.child(PHONE).value.toString()).toString()
                     val mail = MyCrypt.decrypt(s.child(MAIL).value.toString()).toString()

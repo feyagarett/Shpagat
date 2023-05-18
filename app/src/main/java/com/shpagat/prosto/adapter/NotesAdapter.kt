@@ -48,4 +48,17 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
         privateList.addAll(list)
         notifyDataSetChanged()
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun deleteItem(position: Int) {
+        privateList.removeAt(position)
+        notifyDataSetChanged()
+    }
+
+    fun addItem(position: Int, item: NoteModel) {
+        privateList.add(position, item)
+        notifyItemInserted(position)
+    }
+
+    fun getItem(position: Int) = privateList[position]
 }
