@@ -1,14 +1,13 @@
 package com.shpagat.prosto.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.shpagat.prosto.R
 import com.shpagat.prosto.databinding.FragmentProfileBinding
-import com.shpagat.prosto.databinding.FragmentScheduleBinding
 import com.shpagat.prosto.utils.APP
 
 class ProfileFragment : Fragment() {
@@ -37,6 +36,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initFuns() {
+        binding.statistics.setOnClickListener {
+            val navController = Navigation.findNavController(APP, R.id.main_frame)
+            navController.navigate(R.id.action_profile_to_adminStatistics)
+        }
         binding.schedule.setOnClickListener {
             val navController = Navigation.findNavController(APP, R.id.main_frame)
             navController.navigate(R.id.action_profile_to_adminSchedule)

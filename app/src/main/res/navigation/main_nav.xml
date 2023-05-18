@@ -74,6 +74,12 @@
         android:label="fragment_admin_add_ticket"
         tools:layout="@layout/fragment_admin_add_ticket" />
 
+    <fragment
+        android:id="@+id/adminStatistics"
+        android:name="com.shpagat.prosto.screens.AdminStatisticsFragment"
+        android:label="fragment_admin_statistics"
+        tools:layout="@layout/fragment_admin_statistics" />
+
     <action
         android:id="@+id/action_about_to_direction"
         app:destination="@id/direction"
@@ -113,5 +119,10 @@
         android:id="@+id/action_adminTickets_to_adminAddTicket"
         app:destination="@id/adminAddTicket"
         app:popUpTo="@+id/adminTickets" />
+
+    <action
+        android:id="@+id/action_profile_to_adminStatistics"
+        app:destination="@id/adminStatistics"
+        app:popUpTo="@+id/profile" />
 
 </navigation>
