@@ -83,7 +83,6 @@
             style="@style/input"
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="4dp"
-            android:digits="0123456789-"
             android:hint="Введите номер телефона клиента"
             android:inputType="phone"
             android:padding="12dp" />
@@ -98,7 +97,6 @@
             style="@style/input"
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="4dp"
-            android:digits="0123456789. :"
             android:hint="Введите почту клиента"
             android:inputType="textEmailAddress"
             android:padding="12dp" />

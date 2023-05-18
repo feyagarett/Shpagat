@@ -94,7 +94,7 @@ class NoteFragment : Fragment() {
                                         appToast("Перезайдите в приложение")
                                     }
                                 } else {
-                                    appToast("no")
+                                    appToast("Перезайдите в приложение")
                                 }
                             }.addOnFailureListener { e ->
                                 Log.e("", e.message.toString())

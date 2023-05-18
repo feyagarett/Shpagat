@@ -44,7 +44,7 @@ class AdminAddTicketFragment : Fragment() {
     }
 
     private fun initFuns() {
-        if (adminVM.editTraining) {
+        if (adminVM.editTicket) {
             binding.addBtn.text = "Сохранить"
             binding.addBtn.setOnClickListener {
                 trySaveTicket()
@@ -69,8 +69,8 @@ class AdminAddTicketFragment : Fragment() {
             ticketDb.child(TITLE).setValue(title)
             ticketDb.child(REMAINED).setValue(remained)
             ticketDb.child(NAME).setValue(name)
-            ticketDb.child(PHONE).setValue(phone)
-            ticketDb.child(MAIL).setValue(mail)
+            ticketDb.child(PHONE).setValue(MyCrypt.encrypt(phone))
+            ticketDb.child(MAIL).setValue(MyCrypt.encrypt(mail))
             adminVM.usedTickets.add(
                 UsedTicketModel(
                     title, remained, name, phone, mail, adminVM.ticketId
@@ -99,8 +99,8 @@ class AdminAddTicketFragment : Fragment() {
             ticketDb.child(TITLE).setValue(title)
             ticketDb.child(REMAINED).setValue(remained)
             ticketDb.child(NAME).setValue(name)
-            ticketDb.child(PHONE).setValue(phone)
-            ticketDb.child(MAIL).setValue(mail)
+            ticketDb.child(PHONE).setValue(MyCrypt.encrypt(phone))
+            ticketDb.child(MAIL).setValue(MyCrypt.encrypt(mail))
             adminVM.usedTickets.add(UsedTicketModel(title, remained, name, phone, mail, id))
             appToast("Успех")
             clearInputs()

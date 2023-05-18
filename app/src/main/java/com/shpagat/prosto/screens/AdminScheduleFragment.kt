@@ -39,6 +39,7 @@ class AdminScheduleFragment : Fragment() {
 
     private fun initFields() {
         adminVM = ViewModelProvider(APP)[AdminVM::class.java]
+        adminVM.editTraining = false
         initList()
     }
 
