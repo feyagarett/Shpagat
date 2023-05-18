@@ -59,12 +59,13 @@ class ScheduleFragment : Fragment() {
                 getTrainings(longDate)
             }
 
-        val datePicker =  DatePickerDialog(
+        val datePicker = DatePickerDialog(
             APP, dateSetListener,
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
             cal.get(Calendar.DAY_OF_MONTH)
         )
+        datePicker.datePicker.minDate = Date().time
         datePicker.window?.setBackgroundDrawable(APP.getDrawable(R.drawable.date_picker))
         datePicker.show()
     }
@@ -78,7 +79,7 @@ class ScheduleFragment : Fragment() {
         val currentList = mutableListOf<TrainingModel>()
         for (i in noteVm.trainings) {
             if (i.date.toLong() in longDate.toLong()..longDate.toLong() + 86400) {
-                if (longDate.toLong() > currentLong.toLong())
+                if (longDate.toLong() > currentLong.toLong() - 1000)
                     currentList.add(i)
             }
         }
