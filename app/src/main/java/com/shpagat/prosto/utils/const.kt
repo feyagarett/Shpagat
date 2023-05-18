@@ -1,7 +1,6 @@
 package com.shpagat.prosto.utils
 
 const val ADMIN = "admin"
-const val SCHEDULE = "schedule"
 const val USED_TICKETS = "usedTickets"
 const val MAIL = "mail"
 const val PHONE = "phone"
@@ -14,3 +13,13 @@ const val PRICE = "price"
 const val TIME = "time"
 const val TRAININGS = "trainings"
 const val PLACES = "places"
+
+const val SCHOOL = "Школа шпагата"
+const val KUNDALINI = "Кундалини йога"
+const val BACK = "Здоровая спина"
+const val AERO = "Aero"
+const val FULL = "Full body"
+const val JOGA = "Yoga balance"
+const val MFR = "MFR + stretch"
+const val SIMETRICA = "Simetrica"
+const val PIN = "Гвоздестояние"
