@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".screens.AdminStatisticsFragment">
 
@@ -20,6 +21,13 @@
         android:text="Общее число посещений: 201"
         android:textColor="@color/primary_color"
         android:textSize="14sp" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/diagram"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="12dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
