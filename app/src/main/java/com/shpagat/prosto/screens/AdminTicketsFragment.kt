@@ -90,6 +90,8 @@ class AdminTicketsFragment : Fragment() {
             visible(binding.addBtn)
         }
         binding.cancelBtn.setOnClickListener {
+            adapter.addItem(viewHolder.absoluteAdapterPosition, ticket)
+            adapter.deleteItem(viewHolder.absoluteAdapterPosition)
             gone(binding.deleteBtn)
             gone(binding.cancelBtn)
             visible(binding.addBtn)

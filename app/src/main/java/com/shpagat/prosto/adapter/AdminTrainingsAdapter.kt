@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.shpagat.prosto.R
+import com.shpagat.prosto.model.NoteModel
 import com.shpagat.prosto.model.TrainingModel
 import com.shpagat.prosto.utils.APP
 import com.shpagat.prosto.viewmodel.AdminVM
@@ -53,6 +54,11 @@ class AdminTrainingsAdapter : RecyclerView.Adapter<AdminTrainingsAdapter.ViewHol
     fun deleteItem(position: Int) {
         privateList.removeAt(position)
         notifyDataSetChanged()
+    }
+
+    fun addItem(position: Int, item: TrainingModel) {
+        privateList.add(position, item)
+        notifyItemInserted(position)
     }
 
     fun getItem(position: Int) = privateList[position]

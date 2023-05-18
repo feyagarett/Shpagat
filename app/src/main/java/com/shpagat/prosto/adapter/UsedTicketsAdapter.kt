@@ -53,6 +53,11 @@ class UsedTicketsAdapter : RecyclerView.Adapter<UsedTicketsAdapter.ViewHolder>()
         notifyDataSetChanged()
     }
 
+    fun addItem(position: Int, item: UsedTicketModel) {
+        privateList.add(position, item)
+        notifyItemInserted(position)
+    }
+
     fun getItem(position: Int) = privateList[position]
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
