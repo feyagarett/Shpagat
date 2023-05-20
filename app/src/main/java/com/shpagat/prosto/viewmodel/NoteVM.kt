@@ -8,7 +8,6 @@ class NoteVM : ViewModel() {
     var trainings = mutableListOf<TrainingModel>()
     var usedTickets = mutableListOf<UsedTicketModel>()
 
-    var trainingId = ""
     var trainingCoach = ""
     var trainingDate = ""
     var trainingPrice = ""

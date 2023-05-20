@@ -30,6 +30,7 @@ class GetNotesService : Service() {
                     val time = s.child(TIME).value.toString()
                     adminVM.notes.add(NoteModel(id, name, phone, mail, title, coach, time, price))
                 }
+                adminVM.notes = adminVM.notes.sortedBy { it.time } as MutableList<NoteModel>
             }
         })
 

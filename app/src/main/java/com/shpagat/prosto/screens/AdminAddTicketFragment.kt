@@ -10,11 +10,13 @@ import com.shpagat.prosto.databinding.FragmentAdminAddTicketBinding
 import com.shpagat.prosto.model.UsedTicketModel
 import com.shpagat.prosto.utils.*
 import com.shpagat.prosto.viewmodel.AdminVM
+import com.shpagat.prosto.viewmodel.NoteVM
 import java.util.*
 
 class AdminAddTicketFragment : Fragment() {
     private lateinit var binding: FragmentAdminAddTicketBinding
     private lateinit var adminVM: AdminVM
+    private lateinit var noteVM: NoteVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,7 @@ class AdminAddTicketFragment : Fragment() {
 
     private fun initFields() {
         adminVM = ViewModelProvider(APP)[AdminVM::class.java]
+        noteVM = ViewModelProvider(APP)[NoteVM::class.java]
         if (adminVM.editTicket) setData()
     }
 
@@ -76,9 +79,18 @@ class AdminAddTicketFragment : Fragment() {
                     title, remained, name, phone, mail, adminVM.ticketId
                 )
             )
+            noteVM.usedTickets.add(
+                UsedTicketModel(
+                    title, remained, name, phone, mail, adminVM.ticketId
+                )
+            )
             for (i in adminVM.usedTickets) {
                 if (i.id == adminVM.ticketId)
                     adminVM.usedTickets.remove(i)
+            }
+            for (i in noteVM.usedTickets) {
+                if (i.id == adminVM.ticketId)
+                    noteVM.usedTickets.remove(i)
             }
             appToast("Успех")
             clearInputs()
@@ -102,6 +114,7 @@ class AdminAddTicketFragment : Fragment() {
             ticketDb.child(PHONE).setValue(MyCrypt.encrypt(phone))
             ticketDb.child(MAIL).setValue(MyCrypt.encrypt(mail))
             adminVM.usedTickets.add(UsedTicketModel(title, remained, name, phone, mail, id))
+            noteVM.usedTickets.add(UsedTicketModel(title, remained, name, phone, mail, id))
             appToast("Успех")
             clearInputs()
         } else {

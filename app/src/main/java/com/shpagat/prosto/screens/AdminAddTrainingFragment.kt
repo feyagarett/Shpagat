@@ -90,7 +90,7 @@ class AdminAddTrainingFragment : Fragment() {
                 appToast("Успех")
                 clearInputs()
             } catch (e: Exception) {
-                appToast("Неверный формат даты и времени")
+                appToast("Подтвердите изменение")
             }
         } else {
             appToast("Заполните поля")
