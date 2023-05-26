@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initFields()
-        initFuns()
     }
 
+    // инициализация фоновых сервисов, БД и переменной главного активити
     private fun initFields() {
         APP = this
         database = FirebaseDatabase.getInstance().reference
@@ -32,10 +32,7 @@ class MainActivity : AppCompatActivity() {
         startService(Intent(APP, GetTrainingsService::class.java))
     }
 
-    private fun initFuns() {
-
-    }
-
+    // инициализация нижней панели навигации
     private fun initBottomNav() {
         val navController = findNavController(R.id.main_frame)
         binding.bottomNav.setupWithNavController(navController)

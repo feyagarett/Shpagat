@@ -6,6 +6,7 @@ import com.shpagat.prosto.model.StatisticsModel
 import com.shpagat.prosto.model.TrainingModel
 import com.shpagat.prosto.model.UsedTicketModel
 
+//viewmodel для администратора
 class AdminVM : ViewModel() {
     var usedTickets = mutableListOf<UsedTicketModel>()
     var notes = mutableListOf<NoteModel>()

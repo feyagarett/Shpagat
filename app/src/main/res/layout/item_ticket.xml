@@ -58,7 +58,7 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:fontFamily="@font/regular"
-        android:text="** За покупкой обращаться к администратору"
+        android:text="Для покупки абонемента свяжитесь с администратором:\nWhatsApp, Telegram, SMS\nВера +79889900285"
         android:textColor="@color/black_color"
         android:textSize="8sp" />
 

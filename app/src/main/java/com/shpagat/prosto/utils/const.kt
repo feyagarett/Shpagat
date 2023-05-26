@@ -1,5 +1,6 @@
 package com.shpagat.prosto.utils
 
+// константы
 const val ADMIN = "admin"
 const val USED_TICKETS = "usedTickets"
 const val MAIL = "mail"

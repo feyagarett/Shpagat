@@ -23,18 +23,10 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initFields()
         initFuns()
     }
 
-    private fun initFields() {
-        setStatistic()
-    }
-
-    private fun setStatistic() {
-
-    }
-
+    // инициализация кнопок
     private fun initFuns() {
         binding.statistics.setOnClickListener {
             val navController = Navigation.findNavController(APP, R.id.main_frame)

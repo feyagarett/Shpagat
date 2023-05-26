@@ -1,6 +1,7 @@
 package com.shpagat.prosto.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,33 +68,42 @@ class AdminAddTicketFragment : Fragment() {
         val phone = myGetText(binding.phone)
         val mail = myGetText(binding.mail)
         if (title.isNotEmpty() && remained.isNotEmpty() && name.isNotEmpty() && phone.isNotEmpty() && mail.isNotEmpty()) {
-            adminVM.editTicket = false
-            val ticketDb = database.child(USED_TICKETS).child(adminVM.ticketId)
-            ticketDb.child(TITLE).setValue(title)
-            ticketDb.child(REMAINED).setValue(remained)
-            ticketDb.child(NAME).setValue(name)
-            ticketDb.child(PHONE).setValue(MyCrypt.encrypt(phone))
-            ticketDb.child(MAIL).setValue(MyCrypt.encrypt(mail))
-            adminVM.usedTickets.add(
-                UsedTicketModel(
-                    title, remained, name, phone, mail, adminVM.ticketId
+            if (validateEmail(mail) && validatePhone(phone)) {
+                adminVM.editTicket = false
+                val ticketDb = database.child(USED_TICKETS).child(adminVM.ticketId)
+                ticketDb.child(TITLE).setValue(title)
+                ticketDb.child(REMAINED).setValue(remained)
+                ticketDb.child(NAME).setValue(name)
+                ticketDb.child(PHONE).setValue(MyCrypt.encrypt(phone))
+                ticketDb.child(MAIL).setValue(MyCrypt.encrypt(mail))
+                adminVM.usedTickets.add(
+                    UsedTicketModel(
+                        title, remained, name, phone, mail, adminVM.ticketId
+                    )
                 )
-            )
-            noteVM.usedTickets.add(
-                UsedTicketModel(
-                    title, remained, name, phone, mail, adminVM.ticketId
+                noteVM.usedTickets.add(
+                    UsedTicketModel(
+                        title, remained, name, phone, mail, adminVM.ticketId
+                    )
                 )
-            )
-            for (i in adminVM.usedTickets) {
-                if (i.id == adminVM.ticketId)
-                    adminVM.usedTickets.remove(i)
+                try {
+                    for (i in adminVM.usedTickets) {
+                        if (i.id == adminVM.ticketId)
+                            adminVM.usedTickets.remove(i)
+                    }
+                    for (i in noteVM.usedTickets) {
+                        if (i.id == adminVM.ticketId)
+                            noteVM.usedTickets.remove(i)
+                    }
+
+                } catch (e: java.lang.Exception) {
+                    Log.e("", e.message.toString())
+                }
+                appToast("Успех")
+                clearInputs()
+            } else {
+                appToast("Проверьте формат почты и телефона")
             }
-            for (i in noteVM.usedTickets) {
-                if (i.id == adminVM.ticketId)
-                    noteVM.usedTickets.remove(i)
-            }
-            appToast("Успех")
-            clearInputs()
         } else {
             appToast("Заполните поля")
         }

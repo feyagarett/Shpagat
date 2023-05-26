@@ -30,6 +30,7 @@ class TicketsFragment : Fragment() {
         getTickets()
     }
 
+    // создание абонементов
     private fun getTickets() {
         val ticketsList = mutableListOf<TicketModel>()
         ticketsList.add(
@@ -59,6 +60,7 @@ class TicketsFragment : Fragment() {
         initList(ticketsList)
     }
 
+    // инициализация списка абонементов
     private fun initList(ticketsList: MutableList<TicketModel>) {
         adapter = TicketsAdapter()
         recyclerView = binding.recyclerView

@@ -70,6 +70,7 @@ class UsedTicketsAdapter : RecyclerView.Adapter<UsedTicketsAdapter.ViewHolder>()
     private fun editTraining(ticket: UsedTicketModel) {
         val adminVM = ViewModelProvider(APP)[AdminVM::class.java]
         adminVM.editTicket = true
+        adminVM.ticketId = ticket.id
         adminVM.ticketTitle = ticket.title
         adminVM.ticketRemained = ticket.remained
         adminVM.ticketName = ticket.name

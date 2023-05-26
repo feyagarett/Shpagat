@@ -9,6 +9,7 @@ import com.shpagat.prosto.utils.*
 import com.shpagat.prosto.viewmodel.AdminVM
 import com.shpagat.prosto.viewmodel.NoteVM
 
+// фоновый сервис для получения текущих тренировок
 class GetTrainingsService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {

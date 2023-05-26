@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.shpagat.prosto.databinding.FragmentNoteBinding
+import com.shpagat.prosto.model.NoteModel
 import com.shpagat.prosto.utils.*
 import com.shpagat.prosto.viewmodel.AdminVM
 import com.shpagat.prosto.viewmodel.NoteVM
@@ -45,16 +46,20 @@ class NoteFragment : Fragment() {
         val phone = myGetText(binding.phone)
         val mail = myGetText(binding.email)
         if (name.isNotEmpty() && phone.isNotEmpty() && mail.isNotEmpty()) {
-            for (i in noteVM.usedTickets) {
-                if (i.phone == phone) {
-                    existTicket = true
-                    break
+            if (validateEmail(mail) && validatePhone(phone)) {
+                for (i in noteVM.usedTickets) {
+                    if (i.phone == phone) {
+                        existTicket = true
+                        break
+                    }
                 }
-            }
-            if (existTicket) {
-                noteUser(name, phone, mail)
+                if (existTicket) {
+                    noteUser(name, phone, mail)
+                } else {
+                    appToast("У вас нет абонемента")
+                }
             } else {
-                appToast("У вас нет абонемента")
+                appToast("Проверьте формат почты и телефона")
             }
         } else {
             appToast("Заполните поля")
@@ -62,73 +67,122 @@ class NoteFragment : Fragment() {
     }
 
     private fun noteUser(name: String, phone: String, mail: String) {
-        var exist = false
-        for (i in adminVM.notes) {
-            if (i.time == noteVM.trainingDate && i.phone == phone) {
-                exist = true
-                break
-            }
-        }
-        if (exist) appToast("Вы уже записаны") else {
+        if (existNote(phone)) {
+            appToast("Вы уже записаны")
+        } else {
             database.child(TRAININGS).child(noteVM.trainingDate).child(PLACES).get()
                 .addOnSuccessListener {
-                    if (it.exists()) {
-                        val places = it.value.toString().toInt()
-                        var ticketId = ""
-                        var oldRemained = 0
-                        for (i in noteVM.usedTickets) {
-                            if (i.phone == phone) {
-                                oldRemained = i.remained.toInt()
-                                if (oldRemained > 0) {
-                                    ticketId = i.id
-                                    database.child(USED_TICKETS).child(ticketId).child(REMAINED)
-                                        .get().addOnSuccessListener { rem ->
-                                            if (rem.exists()) {
-                                                val remained = rem.value.toString().toInt()
-                                                if (remained > 0) {
-                                                    database.child(USED_TICKETS).child(ticketId)
-                                                        .child(REMAINED).setValue(remained - 1)
-                                                    if (places > 0)
-                                                        database.child(TRAININGS)
-                                                            .child(noteVM.trainingDate)
-                                                            .child(PLACES)
-                                                            .setValue(places - 1)
-                                                    else appToast("Мест не осталось")
-                                                    val id = UUID.randomUUID().toString()
-                                                    val notesDb = database.child(NOTES).child(id)
-                                                    notesDb.child(COACH)
-                                                        .setValue(noteVM.trainingCoach)
-                                                    notesDb.child(MAIL)
-                                                        .setValue(MyCrypt.encrypt(mail))
-                                                    notesDb.child(NAME).setValue(name)
-                                                    notesDb.child(PHONE)
-                                                        .setValue(MyCrypt.encrypt(phone))
-                                                    notesDb.child(PRICE)
-                                                        .setValue(noteVM.trainingPrice)
-                                                    notesDb.child(TIME)
-                                                        .setValue(noteVM.trainingDate)
-                                                    notesDb.child(TITLE)
-                                                        .setValue(noteVM.trainingTitle)
-                                                    appToast("Успех")
-                                                    noted = true
-                                                    binding.noteBtn.text = "Вы записаны"
-                                                } else {
-                                                    appToast("В абонементе не осталось занятий")
-                                                }
-                                            } else {
-                                                appToast("Что-то пошло не так..")
-                                            }
-                                        }.addOnFailureListener { e ->
-                                            Log.e("", e.message.toString())
+                    val places = it.value.toString().toInt()
+                    var ticketId: String
+                    var oldRemained: Int
+                    for (i in noteVM.usedTickets) {
+                        if (i.phone == phone) {
+                            oldRemained = i.remained.toInt()
+                            if (oldRemained > 0) {
+                                ticketId = i.id
+                                database.child(USED_TICKETS).child(ticketId).child(REMAINED)
+                                    .get().addOnSuccessListener { rem ->
+                                        if (places > 0) {
+                                            database.child(TRAININGS)
+                                                .child(noteVM.trainingDate)
+                                                .child(PLACES)
+                                                .setValue(places - 1)
+                                            database.child(USED_TICKETS).child(ticketId)
+                                                .child(REMAINED).setValue(oldRemained - 1)
+                                            val id = UUID.randomUUID().toString()
+                                            val notesDb = database.child(NOTES).child(id)
+                                            notesDb.child(COACH)
+                                                .setValue(noteVM.trainingCoach)
+                                            notesDb.child(MAIL)
+                                                .setValue(MyCrypt.encrypt(mail))
+                                            notesDb.child(NAME).setValue(name)
+                                            notesDb.child(PHONE)
+                                                .setValue(MyCrypt.encrypt(phone))
+                                            notesDb.child(PRICE)
+                                                .setValue(noteVM.trainingPrice)
+                                            notesDb.child(TIME)
+                                                .setValue(noteVM.trainingDate)
+                                            notesDb.child(TITLE)
+                                                .setValue(noteVM.trainingTitle)
+                                            addToAdminNotes(id, name, phone, mail)
+                                            changeAdminTraining()
+                                            changeTrainingPlaces()
+                                            changeTicketRemained(phone)
+                                            noteVM.tempTrainings.add(noteVM.trainingDate)
+                                            appToast("Успех")
+                                            noted = true
+                                            binding.noteBtn.text = "Вы записаны"
+                                        } else {
+                                            appToast("Мест не осталось")
                                         }
-                                } else {
-                                    appToast("В абонементе не осталось занятий")
-                                }
+
+                                    }.addOnFailureListener { e ->
+                                        Log.e("", e.message.toString())
+                                    }
+                            } else {
+                                appToast("В абонементе не осталось занятий")
                             }
                         }
                     }
                 }
         }
+    }
+
+    private fun changeAdminTraining() {
+        for (i in adminVM.trainings) {
+            if (i.date == noteVM.trainingDate)
+                i.places = (i.places.toInt() - 1).toString()
+        }
+    }
+
+    private fun changeTicketRemained(phone: String) {
+        for (i in noteVM.usedTickets) {
+            if (i.phone == phone) {
+                i.remained = (i.remained.toInt() - 1).toString()
+            }
+        }
+    }
+
+    private fun changeTrainingPlaces() {
+        for (i in noteVM.trainings) {
+            if (i.date == noteVM.trainingDate)
+                i.places = (i.places.toInt() - 1).toString()
+        }
+    }
+
+    private fun addToAdminNotes(id: String, name: String, phone: String, mail: String) {
+        try {
+            adminVM.notes.add(
+                NoteModel(
+                    id,
+                    name,
+                    phone,
+                    mail,
+                    noteVM.trainingTitle,
+                    noteVM.trainingCoach,
+                    noteVM.trainingDate,
+                    noteVM.trainingPrice
+                )
+            )
+        } catch (e: java.lang.Exception) {
+            Log.e("", e.message.toString())
+        }
+    }
+
+    private fun existNote(phone: String): Boolean {
+        Log.e("", phone)
+        var exist = false
+        for (i in adminVM.notes) {
+            val id = noteVM.trainingDate
+            if (i.time == id && i.phone == phone && noteVM.tempTrainings.contains(id)
+            ) {
+                exist = true
+                break
+            } else {
+                Log.e("", i.phone)
+            }
+        }
+        return exist
     }
 
     private fun initFields() {

@@ -8,6 +8,7 @@ import com.shpagat.prosto.model.NoteModel
 import com.shpagat.prosto.utils.*
 import com.shpagat.prosto.viewmodel.AdminVM
 
+// фоновый сервис для получения записей клиентов
 class GetNotesService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {

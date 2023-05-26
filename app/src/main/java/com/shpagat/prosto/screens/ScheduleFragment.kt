@@ -46,6 +46,7 @@ class ScheduleFragment : Fragment() {
         }
     }
 
+    // инициализация DatePicker
     private fun getDate() {
         var cal = Calendar.getInstance()
         val dateSetListener =
@@ -70,6 +71,7 @@ class ScheduleFragment : Fragment() {
         datePicker.show()
     }
 
+    // получение списка тренировок, основываясь на выбранной дате
     private fun getTrainings(longDate: String) {
         val date = SimpleDateFormat("dd.MM.yy").format(Date().time).toString()
         val currentLong = (SimpleDateFormat("dd.MM.yy").parse(date).time / 1000)
@@ -93,6 +95,7 @@ class ScheduleFragment : Fragment() {
         }
     }
 
+    // инициализация вьюмодели, получение начальной даты
     private fun initFields() {
         noteVm = ViewModelProvider(APP)[NoteVM::class.java]
         val date = SimpleDateFormat("dd.MM.yy").format(Date().time).toString()
@@ -101,6 +104,7 @@ class ScheduleFragment : Fragment() {
         getTrainings(longDate)
     }
 
+    // отображение списка тренировок
     private fun setList(list: List<TrainingModel>) {
         adapter = TrainingsAdapter()
         recyclerView = binding.recyclerView

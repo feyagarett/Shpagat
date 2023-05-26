@@ -116,6 +116,7 @@
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="4dp"
             android:hint="Введите телефон"
+            android:maxLength="12"
             android:inputType="phone"
             android:padding="12dp" />
 

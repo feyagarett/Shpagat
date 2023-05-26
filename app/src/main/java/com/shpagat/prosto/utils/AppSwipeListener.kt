@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shpagat.prosto.R
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
+// класс для отслеживания свайпа
 abstract class AppSwipeListener(context: Context) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
